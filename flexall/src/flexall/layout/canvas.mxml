@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<mx:Canvas width="100%" height="100%">
+		<mx:constraintColumns>
+			<mx:ConstraintColumn id="col1" width="200"/>
+			<mx:ConstraintColumn id="col2" width="50"/>
+		</mx:constraintColumns>
+		<mx:constraintRows>
+			<mx:ConstraintRow id="row1" height="50"/>
+			<mx:ConstraintRow id="row2" height="50"/>
+		</mx:constraintRows>
+		<s:Button label="btn1" left="col1:0" right="col1:0" top="row1:0" bottom="row1:0"/>
+		<s:Button label="btn2" left="col1:10" right="col1:10" top="row2:0" bottom="row2:0"/>
+		<s:Button label="button1" left="col1:0" right="col1:0" top="row1:0"/>
+		<s:Button label="button2" left="col2:0" bottom="row2:0" top="row2:0"/>
+	</mx:Canvas>
+</s:Application>

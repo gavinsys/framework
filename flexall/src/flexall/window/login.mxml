@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" applicationComplete="init()">
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.managers.PopUpManager;
+			protected var loginWindow:LoginWindow;
+			protected function init():void{
+				loginWindow = new LoginWindow();
+				loginWindow.addEventListener(LoginWindow.LOGGIN_IN, onLogin, false, 1, true);
+			}
+			
+			protected function openLoginWindow():void{
+				PopUpManager.addPopUp(loginWindow, this, true);
+				PopUpManager.centerPopUp(loginWindow);
+			}
+			
+			protected function onLogin(event:Event):void{
+				userInfo.text = "User info: "+ loginWindow.username +" ("+ loginWindow.password +")";
+			}
+		]]>
+	</fx:Script>
+	
+	<s:Label id="userInfo" horizontalCenter="0" verticalCenter="-20"/>
+	<s:Button label="Login" horizontalCenter="0" verticalCenter="0" click="openLoginWindow()"/>
+</s:Application>

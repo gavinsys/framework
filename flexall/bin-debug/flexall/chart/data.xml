@@ -1,0 +1,27 @@
+<salesdata>
+	<all>
+		<data internal="2008 Q1" ferrariUnits="2" ferrariSales="2.32" poscheUnits="2" porscheSales="0.2420"/>
+		<data internal="2008 Q2" ferrariUnits="3" ferrariSales="4.32" poscheUnits="5" porscheSales="0.9520"/>
+		<data internal="2008 Q3" ferrariUnits="4" ferrariSales="3.32" poscheUnits="8" porscheSales="0.2547"/>
+		<data internal="2008 Q4" ferrariUnits="5" ferrariSales="5.32" poscheUnits="1" porscheSales="0.8723"/>
+	</all>
+	<ticker>
+		<data interval="2008-09-01" high="54" low="40" open="53" close="43"/>
+		<data interval="2008-09-02" high="62" low="37" open="62" close="40"/>
+		<data interval="2008-09-03" high="65" low="38" open="55" close="60"/>
+		<data interval="2008-09-04" high="69" low="44" open="60" close="52"/>
+		<data interval="2008-09-05" high="70" low="20" open="49" close="48"/>
+	</ticker>
+	<revenues>
+		<data brand="Ferrari" rev="987265"/>
+		<data brand="Porsche" rev="678293"/>
+		<data brand="BWM" rev="567898"/>
+		<data brand="Mercedes" rev="210697"/>
+	</revenues>
+	<profits>
+		<data brand="Ferrari" rev="87265"/>
+		<data brand="Porsche" rev="78293"/>
+		<data brand="BWM" rev="67898"/>
+		<data brand="Mercedes" rev="10697"/>
+	</profits>
+</salesdata>

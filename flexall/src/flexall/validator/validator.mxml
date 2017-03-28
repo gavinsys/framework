@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+		<!--<mx:Validator source="{username}" property="text" required="true"/>-->
+		<mx:StringValidator source="{username}" property="text" minLength="3" maxLength="20" trigger="{submitButton}" triggerEvent="click" tooShortError="at least 3 char" tooLongError="over 20 char"/>
+		<mx:NumberValidator source="{age}" property="text" allowNegative="false" negativeError="Negative error" minValue="5" maxValue="110" domain="int" trigger="{submitage}" triggerEvent="click" />
+		<mx:DateValidator source="{birthday}" property="text" inputFormat="yyyy-mm-dd" allowedFormatChars="-" trigger="{submitbirthday}" triggerEvent="click" />
+		<mx:DateValidator monthSource="{month}" daySource="{day}" yearSource="{year}" monthProperty="value" dayProperty="value" yearProperty="text" trigger="{submitmdy}" triggerEvent="click" />
+		<mx:EmailValidator source="{email}" property="text"  invalidCharError="email error" trigger="{submitemail}" triggerEvent="click" />
+		<mx:CreditCardValidator cardNumberSource="{cardNumber}" cardNumberProperty="text" cardTypeSource="{cardType}" cardTypeProperty="selectedItem" trigger="{submitcard}" triggerEvent="click" />
+		<mx:CurrencyValidator source="{income}" property="text" allowNegative="false" precision="2" trigger="{submitincome}" triggerEvent="click" />
+		<mx:PhoneNumberValidator source="{phone}" property="text" trigger="{submitphone}" triggerEvent="click" />
+		<mx:RegExpValidator source="{regex}" property="text" flags="gmi" expression="\d\{3\}.\d\{2\}.\d\{4\}" noMatchError="nomatcherror" trigger="{submitregex}" triggerEvent="click" />
+		<mx:StringValidator source="{address}" property="text" minLength="5" trigger="{address}" triggerEvent="change" />
+		<!--<mx:StringValidator source="{address}" property="text" minLength="5" trigger="{address}" triggerEvent="valueCommit" />-->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.events.ValidationResultEvent;
+			public var emailVal:EmailValidator = new EmailValidator();
+			public var stringVal:StringValidator = new StringValidator();
+			public function validateForm():void{
+				var varResult:ValidationResultEvent;
+				stringVal.source = username2;
+				stringVal.property = "text";
+				stringVal.minLength = 6;
+				emailVal.source = email2;
+				emailVal.property = "text";
+				varResult = emailVal.validate();
+				if(varResult.type == "invalid"){
+					Alert.show("Please fix your email address");
+				}else{
+					varResult = stringVal.validate();
+					if(varResult.type=="invalid"){
+						Alert.show("please fix your username.");
+					}
+				}
+			}
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:HorizontalLayout/>
+	</s:layout>
+	<s:VGroup>
+		<s:Label text="Enter your username:"/>
+		<s:TextInput id="username"/>
+		<s:Button label="submit" id="submitButton"/>
+		
+		<s:Label text="Enter your age:"/>
+		<s:TextInput id="age"/>
+		<s:Button label="submit" id="submitage"/>
+		
+		<s:Label text="Enter your birthday:"/>
+		<s:TextInput id="birthday"/>
+		<s:Button label="submit" id="submitbirthday"/>
+		
+		<s:Label text="Enter your email:"/>
+		<s:TextInput id="email"/>
+		<s:Button label="submit" id="submitemail"/>
+		
+		<s:DropDownList id="cardType" width="150">
+			<s:ArrayCollection>
+				<fx:String>American express</fx:String>
+				<fx:String>Visa</fx:String>
+				<fx:String>Diners</fx:String>
+				<fx:String>Discover</fx:String>
+				<fx:String>MasterCard</fx:String>
+			</s:ArrayCollection>
+		</s:DropDownList>
+		<s:Label text="CardNumber:"/>
+		<s:TextInput id="cardNumber"/>
+		<s:Button label="submit" id="submitcard"/>
+		
+		<s:Label text="how much do you make:"/>
+		<s:TextInput id="income"/>
+		<s:Button label="submit" id="submitincome"/>
+		
+		<s:Label text="what number can we reach you at:"/>
+		<s:TextInput id="phone"/>
+		<s:Button label="submit" id="submitphone"/>
+		
+		<s:Label text="regex"/>
+		<s:TextInput id="regex"/>
+		<s:Button label="submit" id="submitregex"/>
+		
+		<s:Label text="address"/>
+		<s:TextInput id="address"/>
+		
+	</s:VGroup>
+	<s:VGroup>
+		<s:Label text="Email2"/>
+		<s:TextInput id="email2"/>
+		<s:Label text="username2"/>
+		<s:TextInput id="username2"/>
+		<s:Button label="submit" id="submitvalidate" click="validateForm()"/>
+	</s:VGroup>
+	<s:HGroup>
+		<s:Label text="Month:" />
+		<s:NumericStepper id="month"/>
+		<s:Label text="Day:" />
+		<s:NumericStepper id="day"/>
+		<s:Label text="Year:" />
+		<s:TextInput id="year"/>
+		<s:Button label="submit" id="submitmdy"/>
+	</s:HGroup>
+</s:Application>

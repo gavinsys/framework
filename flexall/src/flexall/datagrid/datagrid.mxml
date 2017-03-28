@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+		<s:ArrayCollection id="myAc">
+			<fx:Object label="One"/>
+			<fx:Object label="Two"/>
+			<fx:Object label="Three"/>
+		</s:ArrayCollection>
+		<s:XMLListCollection id="treecollection">
+			<fx:XMLList id="treelist">
+				<friends label="friends">
+					<friend label="Tariq Ahmed1"/>
+					<friend label="Tariq Ahmed2"/>
+					<friend label="Tariq Ahmed3"/>
+					<friend label="Tariq Ahmed4"/>
+				</friends>
+				<families label="familys">
+					<friend label="Family Ahmed1"/>
+					<friend label="Family Ahmed2"/>
+					<friend label="Family Ahmed3"/>
+					<friend label="Family Ahmed4"/>
+				</families>
+			</fx:XMLList>
+		</s:XMLListCollection>
+		<s:ArrayCollection id="authors">
+			<fx:Object label="Dan Orlando1"/>
+			<fx:Object label="Dan Orlando2"/>
+			<fx:Object label="Dan Orlando3"/>
+			<fx:Object label="Dan Orlando4"/>
+		</s:ArrayCollection>
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.events.ListEvent;
+			[Bindable]
+			private var array:ArrayCollection = new ArrayCollection(["北京","天津","上海"]);
+			[Bindable]
+			private var array2:ArrayCollection = new ArrayCollection([{id:1,city:"北京"},{id:1,city:"天津"},{id:3,city:"上海"}]);
+
+			protected function dg1_itemClickHandler(event:ListEvent):void
+			{
+				Alert.show(event.rowIndex+" "+event.columnIndex+" "+DataGrid(event.currentTarget).selectedItem.name);
+			}
+
+		]]>
+	</fx:Script>
+	<s:HGroup>
+		<s:List id="myList" dataProvider="{array}" x="10" y="10"/>
+		<s:List id="myList2" dataProvider="{myAc}" />
+		<s:List id="myList3" dataProvider="{array2}" labelField="city" />
+		<mx:HorizontalList id="myhList" dataProvider="{array2}" labelField="city"/>
+		<mx:DataGrid id="dg" width="500" height="200" editable="true">
+			<mx:dataProvider>
+				<fx:Object name="Tariq" email="e1"/>
+				<fx:Object name="Tariq2" email="e2"/>
+				<fx:Object name="Tariq3" email="e3"/>
+			</mx:dataProvider>
+			<mx:columns>
+				<mx:DataGridColumn dataField="name" headerText="name" width="300"/>
+				<mx:DataGridColumn dataField="email" headerText="E-mail" width="200" editable="false"/>
+			</mx:columns>
+		</mx:DataGrid>
+	</s:HGroup>
+	<s:HGroup>
+		<mx:DataGrid id="dg1" width="500" height="200" itemClick="dg1_itemClickHandler(event)">
+			<mx:dataProvider>
+				<fx:Object name="Tariq" email="e1"/>
+				<fx:Object name="Tariq2" email="e2"/>
+				<fx:Object name="Tariq3" email="e3"/>
+			</mx:dataProvider>
+			<mx:columns>
+				<mx:DataGridColumn dataField="name" headerText="Contact Name" width="300"/>
+				<mx:DataGridColumn dataField="email" headerText="E-mail" width="200"/>
+			</mx:columns>
+		</mx:DataGrid>
+		<mx:Tree dataProvider="{treecollection}" labelField="@label" width="300" height="200"/>
+		<s:VGroup>
+			<s:ButtonBar dataProvider="{array}"/>
+			<s:DropDownList width="200" dataProvider="{array}" prompt="Select an Item"/>
+		</s:VGroup>
+	</s:HGroup>
+	<s:HGroup>
+		<s:SkinnableDataContainer itemRenderer="flexall.datagrid.TileGroupIR">
+			<s:layout>
+				<s:HorizontalLayout/>
+			</s:layout>
+			<mx:ArrayCollection>
+				<fx:Object labelText="Kitty1" imgSource="assets/1.png"/>
+				<fx:Object labelText="Kitty2" imgSource="assets/2.png"/>
+				<fx:Object labelText="Kitty3" imgSource="assets/3.png"/>
+				<fx:Object labelText="Kitty4" imgSource="assets/4.png"/>
+				<fx:Object labelText="Kitty5" imgSource="assets/5.png"/>
+			</mx:ArrayCollection>
+		</s:SkinnableDataContainer>
+	</s:HGroup>
+	<s:HGroup>
+		<s:VGroup>
+			<s:Label fontWeight="bold" text="Source"/>
+			<s:List dropEnabled="true" dragEnabled="true" dragMoveEnabled="true" allowMultipleSelection="true" dataProvider="{authors}"/>
+		</s:VGroup>
+		<s:VGroup>
+			<s:Label fontWeight="bold" text="Target"/>
+			<s:List dropEnabled="true" dragEnabled="true" dragMoveEnabled="true" allowMultipleSelection="true" dataProvider="{new ArrayCollection()}"/>
+		</s:VGroup>
+	</s:HGroup>
+</s:Application>

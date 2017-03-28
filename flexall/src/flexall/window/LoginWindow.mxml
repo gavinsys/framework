@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" title="Login" close="closeMe()">
+	<s:layout>
+		<s:BasicLayout/>
+	</s:layout>
+	<fx:Metadata>
+		[Event(name="logginIn")]
+	</fx:Metadata>
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.events.CloseEvent;
+			import mx.managers.PopUpManager;
+			public static const LOGGIN_IN:String = "logginIn";
+			[Bindable]
+			private var _username:String = "";
+			public function get username():String{return _username;}
+			
+			[Bindable]
+			private var _password:String = "";
+			public function get password():String{return _password;}
+			
+			public function closeMe():void{
+				PopUpManager.removePopUp(this);
+			}
+			
+			protected function sendLogin():void{
+				dispatchEvent(new Event(LOGGIN_IN));
+				closeMe();
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<mx:Form>
+		<mx:FormItem label="Username">
+			<s:TextInput id="usernameField" text="@{_username}"/>
+		</mx:FormItem>
+		<mx:FormItem label="Password">
+			<s:TextInput id="passwordField" text="@{_password}" displayAsPassword="true"/>
+		</mx:FormItem>
+		<mx:FormItem>
+			<s:Button label="Log In" click="sendLogin()"/>
+		</mx:FormItem>
+	</mx:Form>
+</s:TitleWindow>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx">
+	
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	<mx:Text id="labels" paddingBottom="3" paddingTop="20" paddingLeft="25" text="{data.labelText}"/>
+	<mx:Image id="img" source="{data.imgSource}"/>
+</s:ItemRenderer>

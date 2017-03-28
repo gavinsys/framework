@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx">
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			import mx.controls.Menu;
+			import mx.events.MenuEvent;
+			public function showMsg(text:String):void{
+				Alert.show(text);
+			}
+			[Bindable]
+			public var myArray:ArrayCollection = new ArrayCollection(['one','two','three']);
+			
+			public var menuItems:Object = [{label:'one'},{label:'two'},{label:'three'}];
+			public var thisMenu:Menu = Menu.createMenu(null, menuItems, false);
+			public function handleItemClick(event:MenuEvent):void{
+				menuButton.label = event.label;
+			}
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:TileLayout orientation="rows" requestedColumnCount="2" />
+	</s:layout>
+	<s:Panel title="Profile">
+		<s:layout>
+			<s:VerticalLayout/>
+		</s:layout>
+		<s:Label text="Enter your name" fontWeight="bold"/>
+		<s:TextInput id="yourName" valueCommit="showMsg(yourName.text)"/>
+		
+		<s:Label text="Profile Summary" fontWeight="bold"/>
+		<s:TextArea id="aboutYou" textAlign="center" width="100%" height="40" valueCommit="showMsg(aboutYou.text)"/>
+		
+		<s:Label text="Enter your profile" fontWeight="bold" color="#ff0000"/>
+		<mx:RichTextEditor id="fillProfile" height="150" valueCommit="showMsg(fillProfile.text)"/>
+		<s:Panel title="Howdy" width="100%">
+			<s:RichText textAlign="center" color="#127892" width="100%">
+				<s:content>
+					Greetings
+					<s:span fontWeight="bold" color="#ff0000">
+						people
+					</s:span>of<s:br/>
+					<s:span fontWeight="bold" color="#ff0000">
+						EARTH
+					</s:span>
+				</s:content>
+			</s:RichText>
+		</s:Panel>
+	</s:Panel>
+	<s:Panel title="Profile" width="200" height="200">
+		<s:layout>
+			<s:VerticalLayout/>
+		</s:layout>
+		<mx:DateField id="thisDateField" text="2016-04-03" change="showMsg(thisDateField.selectedDate.toString())"/>
+		<!--<mx:DateChooser id="thisDateChooser" maxYear="2020"  minHeight="1991" selectedDate="{new Date(2016,04,03)}" change="showMsg(thisDateChooser.selectedDate.toString())">
+		</mx:DateChooser>-->
+	</s:Panel>
+	<s:Panel title="Profile">
+		<s:layout>
+			<s:HorizontalLayout/>
+		</s:layout>
+		
+		<s:VGroup>
+			<s:Label fontWeight="bold" text="How many kids do you have?" />
+			<s:NumericStepper id="kids" minimum="0" maximum="10" stepSize="1" change="showMsg(kids.value.toString())">
+			</s:NumericStepper>
+			<s:HGroup>
+				<s:Label fontWeight="bold" text="Kids in college?"/>
+				<s:Spinner minimum="0" maximum="10" id="collegeKids"/>
+				<s:Label text="{collegeKids.value} in college"/>
+			</s:HGroup>
+			<s:Label fontWeight="bold" text="How long is your commute"/>
+			<mx:HSlider id="commuteTimeRange" minimum="0" maximum="180" snapInterval="5" tickInterval="15" labels="[0 mins,180 mins]" thumbCount="2" change="showMsg(commuteTimeRange.values.toString())">
+			</mx:HSlider>
+		</s:VGroup>
+		<s:VGroup>
+			<s:Label fontWeight="bold" text="How tall are you"/>
+			<mx:VSlider id="youHeight" minimum="0" maximum="300" tickInterval="50" snapInterval="1" labels="[0,50,100,150,200,250,300]" change="showMsg(youHeight.values.toString())">
+			</mx:VSlider>
+		</s:VGroup>
+		<s:VGroup>
+			<s:Panel title="Profile" width="400" height="240">
+				<s:layout>
+					<s:HorizontalLayout/>
+				</s:layout>
+				<s:VGroup>
+					<s:Button id="thisBtn" label="Button" click="showMsg('button')"/>
+					<mx:LinkButton id="thisLinkBtn" label="LinkButton" click="showMsg('linkButton')"/>
+				</s:VGroup>
+				<s:VGroup>
+					<s:ButtonBar id="thisBtnBar" dataProvider="{myArray}" click="showMsg(ButtonBar(event.currentTarget).selectedItem)"/>
+					<mx:LinkBar id="thisLinkBar" dataProvider="{myArray}" itemClick="showMsg(event.label)"/>
+				</s:VGroup>
+				<s:VGroup>
+					<mx:PopUpMenuButton id="menuBtn" dataProvider="{myArray}" click="showMsg('left side')" itemClick="showMsg(event.label)"/>
+					<mx:PopUpButton id="menuButton" creationComplete="thisMenu.addEventListener('itemClick', handleItemClick);" popUp="{thisMenu}"/>
+				</s:VGroup>
+			</s:Panel>
+		</s:VGroup>
+	</s:Panel>
+	<s:Panel title="Profile">
+		<s:layout>
+			<s:VerticalLayout/>
+		</s:layout>
+		<s:HGroup>
+			<s:Label text="Your hobbies"/>
+			<s:CheckBox id="cbVidelGames" label="Video Games" click="showMsg(''+cbVidelGames.selected)"/>
+			<s:CheckBox id="doFinish" label="doFinish Games" click="showMsg(''+doFinish.selected)"/>
+		</s:HGroup>
+		<s:HGroup>
+			<s:Label fontWeight="bold" text="do you like spam:"/>
+			<s:RadioButton id="rbYes" value="yes" groupName="Spam" click="showMsg('yes')" label="yes"/>
+			<s:RadioButton id="rbNo" value="no" groupName="Spam" click="showMsg('no')" label="no"/>
+		</s:HGroup>
+		<s:HGroup>
+			<s:Label fontWeight="bold" text="Favorite" />
+			<s:DropDownList id="combo" close="showMsg(''+DropDownList(event.currentTarget).selectedItem.toString())">
+				<s:ArrayCollection>
+					<fx:String>Ferriari1</fx:String>
+					<fx:String>Ferriari2</fx:String>
+					<fx:String>Ferriari3</fx:String>
+					<fx:String>Ferriari4</fx:String>
+				</s:ArrayCollection>
+			</s:DropDownList>
+			<s:Label fontWeight="bold" text="with the color of:"/>
+			<mx:ColorPicker id="clr" change="showMsg(ColorPicker(event.currentTarget).selectedItem.toString())"/>
+		</s:HGroup>
+	</s:Panel>
+</s:Application>

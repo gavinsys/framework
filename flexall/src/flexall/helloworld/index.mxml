@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	<fx:Script>
+		<![CDATA[
+			import flash.net.navigateToURL;
+			
+			import mx.controls.Alert;
+
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				trace("Event Type: "+ event.type + "; come from: "+ event.currentTarget.id);
+				Alert.show("Event Type: "+ event.type + "; come from: "+ event.currentTarget.id);
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	<s:Button label="helloworld" fontSize="40" click="Alert.show('hello')" />
+	<s:Button id="me" label="helloworld" fontSize="40" click="button1_clickHandler(event)" />
+	
+</s:Application>

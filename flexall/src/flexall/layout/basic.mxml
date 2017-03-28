@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<s:layout>
+		<s:BasicLayout/>
+	</s:layout>
+	<s:Button label="button1"/><s:Button label="button2" x="78" y="0"/>
+	<s:Button id="button1" label="show the other button" x="120" y="50" click="button2.x=155;"/>
+	<s:Button id="button2" label="hello!" x="-100" y="80"/>
+	<s:Button label="hello" right="5" top="5" height="21"/>
+</s:Application>

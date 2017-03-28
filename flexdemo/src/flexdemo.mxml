@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	<fx:Declarations>  
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->  
+		<mx:WebService id="webService" wsdl="http://www.webxml.com.cn/WebServices/WeatherWebService.asmx?wsdl"  
+					   showBusyCursor="true" result="onLoad(event)" fault="faultHandler(event)"/>  
+	</fx:Declarations>  
+	<fx:Script>  
+		<![CDATA[ 
+			import mx.collections.ArrayCollection; 
+			import mx.controls.Alert; 
+			import mx.rpc.events.FaultEvent; 
+			import mx.rpc.events.ResultEvent; 
+			private function onLoad(event:ResultEvent):void{  
+				//Alert.show(event.result.toString(),"WebService Results");  
+				var weatherInfo:ArrayCollection = (event.result) as ArrayCollection;  
+				for(var i:int=0;i<weatherInfo.length;i++){  
+					myWeatherReport.text+=weatherInfo[i]+"\n";  
+				}  
+			}  
+			private function faultHandler(event:FaultEvent):void{  
+				Alert.show(event.fault.toString(),'WebService Error');  
+			}  
+			
+			
+			protected function button1_clickHandler(event:MouseEvent):void 
+			{ 
+				webService.getWeatherbyCityName(cityName.text); 
+			} 
+			
+		]]>  
+	</fx:Script>  
+	<s:Panel x="48" y="21" width="679" height="423" title="城市天气预报查询FLEX">  
+		<s:TextInput x="135" y="26" id="cityName"/>  
+		<s:Label x="43" y="31" text="请输入城市名称"/>  
+		<s:Button x="286"  y="26" label="点击查询" click="button1_clickHandler(event)"/>  
+		<s:TextArea id="myWeatherReport" x="31" y="68" width="615" height="297"/>  
+	</s:Panel>  
+</s:Application>

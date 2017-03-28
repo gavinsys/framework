@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:views="flexall.window.*"
+			   minWidth="955" minHeight="600">
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			[Bindable]
+			private var array:ArrayCollection = new ArrayCollection(["北京","天津","上海"]);
+		]]>
+	</fx:Script>
+	<s:states>
+		<s:State name="login" stateGroups="loggedOut"/>
+		<s:State name="computers" stateGroups="loggedIn"/>
+		<s:State name="info" stateGroups="loggedIn"/>
+		<s:State name="tv" stateGroups="loggedIn"/>
+	</s:states>
+	
+	<s:Panel includeIn="loggedOut" title.login="Get in there!">
+		<s:layout>
+			<s:VerticalLayout/>
+		</s:layout>
+		
+		<mx:Form>
+			<mx:FormItem label="Username">
+				<s:TextInput />
+			</mx:FormItem>
+			<mx:FormItem label="Password">
+				<s:TextInput />
+			</mx:FormItem>
+		</mx:Form>
+		<mx:ControlBar>
+			<s:Button label="Login" click="currentState='computers'"/>
+		</mx:ControlBar>
+	</s:Panel>
+	<s:HGroup includeIn="loggedIn">
+		<s:ButtonBar dataProvider="{contentStack}"/>
+		<s:Button label="log out" color="black" click="currentState='login'"/>
+	</s:HGroup>
+	<mx:ViewStack id="contentStack" includeIn="loggedIn">
+		<views:ComputersView label="Computers"/>
+		<views:InfoForm label="Info"/>
+		<views:TVView label="TVs"/>
+	</mx:ViewStack>
+</s:Application>

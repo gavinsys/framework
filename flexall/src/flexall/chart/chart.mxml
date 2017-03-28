@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+		<fx:XML id="salesDataXML" source="data.xml"/>
+		<s:XMLListCollection id="salesData" source="{salesDataXML.all.data}"/>
+		<s:XMLListCollection id="stockData" source="{salesDataXML.ticker.data}"/>
+		<s:XMLListCollection id="revenuesData" source="{salesDataXML.revenues.data}"/>
+		<s:XMLListCollection id="profitsData" source="{salesDataXML.profits.data}"/>
+		
+		<fx:Array id="colorArray">
+			<s:SolidColor color="#6666cc" alpha="0.5"/>
+			<s:SolidColor color="#cc6666" alpha="0.5"/>
+			<s:SolidColor color="#66cc66" alpha="0.5"/>
+			<s:SolidColor color="#b8b83d" alpha="0.5"/>
+		</fx:Array>
+	</fx:Declarations>
+	<s:HGroup>
+		<mx:Legend dataProvider="{salesLineChart}"/>
+		<s:Panel title="FlexMoto Car Sales" width="500" height="250">
+			<s:layout>
+				<s:VerticalLayout/>
+			</s:layout>
+			<mx:LineChart id="salesLineChart" dataProvider="{salesData}" height="100%" width="100%">
+				<mx:horizontalAxis>
+					<mx:CategoryAxis categoryField="@internal" />
+				</mx:horizontalAxis>
+				<mx:series>
+					<mx:LineSeries yField="@ferrariUnits" displayName="Ferrari Count"/>
+					<mx:LineSeries yField="@poscheUnits" displayName="Posche Count"/>
+				</mx:series>
+			</mx:LineChart>
+		</s:Panel>
+		<s:Panel title="FlexMoto Car Sales" width="500" height="250">
+			<s:layout>
+				<s:VerticalLayout/>
+			</s:layout>
+			<mx:Legend dataProvider="{salesAreaChart}"/>
+			<mx:AreaChart id="salesAreaChart" dataProvider="{salesData}" height="100%" width="100%">
+				<mx:horizontalAxis>
+					<mx:CategoryAxis categoryField="@internal" />
+				</mx:horizontalAxis>
+				<mx:series>
+					<mx:AreaSeries yField="@ferrariUnits" displayName="Ferrari Count" alpha="0.5"/>
+					<mx:AreaSeries yField="@poscheUnits" displayName="Posche Count" alpha="0.5"/>
+				</mx:series>
+			</mx:AreaChart>
+		</s:Panel>
+		<s:Panel title="FlexMoto Car Sales" width="500" height="250">
+			<mx:Legend dataProvider="{salesPieChart2}"/>
+			<mx:PieChart id="salesPieChart2" dataProvider="{revenuesData}" height="100%" width="100%">
+				<mx:series>
+					<mx:PieSeries field="@rev" nameField="@brand" labelPosition="callout" calloutGap="50"/>
+					<mx:PieSeries dataProvider="{profitsData}" field="@rev" nameField="@brand" labelPosition="inside"/>
+				</mx:series>
+			</mx:PieChart>
+		</s:Panel>
+	</s:HGroup>
+	
+	<s:HGroup>
+		<mx:Legend dataProvider="{salesBarChart}"/>
+		<s:Panel title="FlexMoto Car Sales" width="500" height="250">
+			<s:layout>
+				<s:VerticalLayout/>
+			</s:layout>
+			<mx:BarChart id="salesBarChart" dataProvider="{salesData}" height="100%" width="100%">
+				<mx:verticalAxis>
+					<mx:CategoryAxis categoryField="@internal" />
+				</mx:verticalAxis>
+				<mx:series>
+					<mx:BarSeries xField="@ferrariUnits" displayName="Ferrari Count"/>
+					<mx:BarSeries xField="@poscheUnits" displayName="Posche Count"/>
+				</mx:series>
+			</mx:BarChart>
+		</s:Panel>
+		<s:Panel title="FlexMoto Car Sales" width="500" height="250">
+			<s:layout>
+				<s:VerticalLayout/>
+			</s:layout>
+			<mx:Legend dataProvider="{salesBar2Chart}"/>
+			<mx:BarChart id="salesBar2Chart" type="stacked" dataProvider="{salesData}" height="100%" width="100%">
+				<mx:verticalAxis>
+					<mx:CategoryAxis categoryField="@internal" />
+				</mx:verticalAxis>
+				<mx:series>
+					<mx:BarSeries xField="@ferrariUnits" displayName="Ferrari Count"/>
+					<mx:BarSeries xField="@poscheUnits" displayName="Posche Count"/>
+				</mx:series>
+			</mx:BarChart>
+		</s:Panel>
+		<s:Panel title="FlexMoto Car Sales" width="500" height="250">
+			<mx:Legend dataProvider="{salesPieChart}"/>
+			<mx:PieChart id="salesPieChart" dataProvider="{revenuesData}" height="100%" width="100%">
+				<mx:series>
+					<mx:PieSeries field="@rev" nameField="@brand" labelPosition="outside" fills="{colorArray}"/>
+				</mx:series>
+			</mx:PieChart>
+		</s:Panel>
+	</s:HGroup>
+	
+	<s:HGroup>
+		<mx:Legend dataProvider="{salesBubbleChart}"/>
+		<s:Panel title="FlexMoto Car Sales" width="500" height="250">
+			<s:layout>
+				<s:VerticalLayout/>
+			</s:layout>
+			<mx:BubbleChart id="salesBubbleChart" maxRadius="20" dataProvider="{salesData}" height="100%" width="100%">
+				<mx:horizontalAxis>
+					<mx:CategoryAxis categoryField="@internal" />
+				</mx:horizontalAxis>
+				<mx:series>
+					<mx:BubbleSeries yField="@ferrariUnits" radiusField="@ferrariSales" displayName="Ferrari Count"/>
+					<mx:BubbleSeries yField="@poscheUnits" radiusField="@porscheSales" displayName="Posche Count"/>
+				</mx:series>
+			</mx:BubbleChart>
+		</s:Panel>
+		
+		<s:Panel title="FlexMoto Car Sales" width="500" height="250">
+			<s:layout>
+				<s:VerticalLayout/>
+			</s:layout>
+			<mx:Legend dataProvider="{salesCandlestickChart}"/>
+			<mx:CandlestickChart id="salesCandlestickChart" dataProvider="{stockData}" height="100%" width="100%">
+				<mx:horizontalAxis>
+					<mx:CategoryAxis categoryField="@interval" />
+				</mx:horizontalAxis>
+				<mx:series>
+					<mx:CandlestickSeries highField="@high" lowField="@low" openField="@open" closeField="@close"/>
+					<mx:CandlestickSeries highField="@high" lowField="@low" openField="@open" closeField="@close"/>
+				</mx:series>
+			</mx:CandlestickChart>
+		</s:Panel>
+		<s:Panel title="FlexMoto Car Sales" width="500" height="250">
+			<s:layout>
+				<s:VerticalLayout/>
+			</s:layout>
+			<mx:Legend dataProvider="{salesHLOCChart}"/>
+			<mx:HLOCChart id="salesHLOCChart" dataProvider="{stockData}" height="100%" width="100%">
+				<mx:horizontalAxis>
+					<mx:CategoryAxis categoryField="@interval" />
+				</mx:horizontalAxis>
+				<mx:series>
+					<mx:HLOCSeries highField="@high" lowField="@low" openField="@open" closeField="@close"/>
+					<mx:HLOCSeries highField="@high" lowField="@low" openField="@open" closeField="@close"/>
+				</mx:series>
+			</mx:HLOCChart>
+		</s:Panel>
+	</s:HGroup>
+</s:Application>

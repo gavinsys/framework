@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600">
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	<fx:Script source="indexas.as"/>
+	<fx:Script>
+		<![CDATA[
+			import mx.binding.utils.BindingUtils;
+			import mx.controls.Alert;
+			
+			// 注释
+			var i:int;
+			/*
+			注释
+			*/
+			// var x:int; x是内置 会冲突
+			var j:int;
+			var myVar:Number=10.10;
+			// myVar = "test"; error
+			var myString:String = new String("hello");
+			// var myString:String = "hello"; 
+			var myInt:int = -1;
+			var myUint:uint = 32;
+			var myNumber:Number = 23.22;
+			var myXML:XML = <root><node></node></root>;
+			var myObj:Object = {x:1, y:2, z:3};
+			var myArray:Array = ["item1","item2","item3"];
+			var myBool:Boolean = false;
+			
+			private function  foreach():void{ 
+				Alert.show("hello");
+				for(var n:int=2;n<=10;n++) // 一定要写在方法内
+					trace(n);
+				
+				var myArray:Array = ["alpha","bate","chi"];
+				for(var i:String in myArray){
+					trace(i);
+					trace(myArray[i]);
+				}
+				
+				var myObj:Object = {firstName:"jeff",lastName:"smith"};
+				for each(var i:String in myObj){
+					trace(i);
+				}
+				
+				var a:int = 0;
+				while(a<5){
+					trace(a);
+					a++;
+				}
+				
+				var b:int=0;
+				do{
+					trace(b);
+					b=b+1;
+				}while(b<5);
+				
+				var flag = true;
+				if(flag){
+					Alert("true");
+				}else if(false && flag){
+					Alert("...");
+				}else{
+					Alert("false");
+				}
+				var str:String = "a";
+				switch(str){
+					case 'a':Alert.show(str);break;
+					case 'b':Alert.show(str);break;
+					case 'c':Alert.show(str);break;
+					case 'd':Alert.show(str);break;
+					default:Alert.show("error");
+				}
+				
+				var houseArray:Array = new Array(3);
+				houseArray.push("a");
+				houseArray.push("a");// 添加到结尾
+				houseArray.unshift("header");// 添加到开头
+				houseArray.pop(); // 删除结尾的
+				houseArray.shift(); // 删除开头的
+				houseArray.splice(1,0,"test"); // 第二个位置添加一下test
+				houseArray.splice(1,1); // 删除第二项
+				houseArray.splice(3,2,"1","2","3"); // 第四个位置开始删除两项，在添加三项 1 2 3
+				var car = new Array();
+				car["a"] = "aa";
+				car["b"] = "bb";
+				car["c"] = "c";
+				for(var key:String in car){
+					trace(key);
+					trace(car[key]);
+				}
+			}
+			
+			private function textMerge(val1:String, val2:String):String{
+				var val:String = val1+val2;
+				return val;
+			}
+			[Bindable]
+			public var s:String = "";
+		]]>
+	</fx:Script>
+	
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+		
+	<s:Group>
+		<s:layout>
+			<s:HorizontalLayout/>
+		</s:layout>
+		<s:TextInput id="val1"/><s:Label text="and"/><mx:TextInput id="val2"/>
+		<s:Button label="merge" click="Alert.show(textMerge(val1.text,val2.text))"/>
+		<s:Button label="merge" click="Alert.show(textMerge2(val1.text,val2.text))"/>
+	</s:Group>
+	<s:Group>
+		<s:layout>
+			<s:HorizontalLayout/>
+		</s:layout>
+		<s:TextInput id="text1"/><s:Label text="copy"/><mx:TextInput id="text2"/>
+		<s:Button label="merge" click="text2.text=text1.text"/>
+	</s:Group>
+	<s:Group>
+		<s:layout>
+			<s:HorizontalLayout/>
+		</s:layout>
+		<s:TextInput id="input1"/><mx:TextInput id="input2" text="{input1.text}"/>
+	</s:Group>
+	<s:Group>
+		<s:layout>
+			<s:HorizontalLayout/>
+		</s:layout>
+		<s:TextInput id="s1"/>
+		<s:Button label="merge" click="s=s1.text"/>
+		<mx:TextInput id="s2" text="{s}"/>
+	</s:Group>
+</s:Application>

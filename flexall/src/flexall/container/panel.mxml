@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" xmlns:layout="flexall.layout.*">
+	<fx:Declarations>
+		<!-- 将非可视元素（例如服务、值对象）放在此处 -->
+	</fx:Declarations>
+	
+	<s:Panel title="Panel Title">
+		<s:HGroup top="5" bottom="5" left="5" right="5">
+			<s:Button label="button1"/>
+			<s:Button label="button2"/>
+		</s:HGroup>
+	</s:Panel>
+	<s:Panel title="report dashboard" horizontalCenter="0" verticalCenter="0">
+		<mx:DividedBox direction="horizontal" width="100%">
+			<s:VGroup height="100%">
+				<mx:Text text="Categories" fontWeight="bold"/>
+				<s:Button label="Finance" width="100%"/>
+				<s:Button label="Operations" width="100%"/>
+			</s:VGroup>
+			<mx:VDividedBox width="50%" height="100%">
+				<s:VGroup width="100%">
+					<mx:Text text="Finance Reports" fontWeight="bold"/>
+					<mx:Text text="2016 sales"/>
+					<mx:Text text="2016 sales"/>
+				</s:VGroup>
+				<s:VGroup width="100%">
+					<mx:Text text="2016 sales" fontWeight="bold"/>
+					<mx:Text text="$2,001"/>
+					<mx:Text text="$2,001"/>
+				</s:VGroup>
+			</mx:VDividedBox>
+		</mx:DividedBox>
+	</s:Panel>
+</s:Application>
