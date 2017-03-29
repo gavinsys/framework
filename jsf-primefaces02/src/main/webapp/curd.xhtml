@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:c="http://java.sun.com/jsp/jstl/core" template="template/ui.xhtml">
+	<ui:define name="body">
+		<h:form id="form1">  
+        <p:dataTable var="info" value="#{infoMB.lazyModel}" paginator="true" rows="10" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" rowsPerPageTemplate="5,10,15" id="infoTable" lazy="true">
+        <f:facet name="header">
+	        List of Info
+	        <p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
+	        <p:columnToggler datasource="infoTable" trigger="toggler" />
+	    </f:facet>
+            <p:column headerText="id" sortBy="#{info.id}" filterBy="#{info.id}">
+                <h:outputText value="#{info.id}" />
+            </p:column>
+            
+            <p:column headerText="title" sortBy="#{info.title}" filterBy="#{info.title}">
+                <h:outputText value="#{info.title}" />
+            </p:column>
+            
+            <p:column headerText="time" sortBy="#{info.time}" filterBy="#{info.time}">
+                <h:outputText value="#{info.time}">
+                    <f:convertDateTime timeZone="GMT+8" pattern="yyyy-MM-dd HH:mm:ss" locale="zh" />
+                </h:outputText>
+            </p:column>
+            
+            <p:column headerText="">
+                <p:commandButton value="delete" oncomplete="PF('delDialog').show()">
+                    <f:setPropertyActionListener value="#{info}" target="#{infoMB.selected}" />
+                </p:commandButton>
+                <p:commandButton value="update" oncomplete="PF('updateDialog').show()" update=":form4" >
+                	<f:setPropertyActionListener value="#{info}" target="#{infoMB.selected}" />
+                </p:commandButton>
+            </p:column>
+        </p:dataTable>
+    </h:form>    
+    
+    <p:dialog header="Are you sure?" widgetVar="delDialog" modal="true">
+        <h:form id="form2">
+            <h:panelGrid columns="2" cellpadding="5" id="addPanel">
+                <f:facet name="facet1">
+                    <p:outputLabel value="Are you sure?" />
+                </f:facet>
+                
+                <p:commandButton value="yes" actionListener="#{infoMB.delete}" update=":form1:infoTable" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" oncomplete="PF('delDialog').hide()" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" oncomplete="PF('delDialog').hide()" />
+            </h:panelGrid>
+        </h:form>
+    </p:dialog>
+    
+    <p:commandButton value="add" onclick="PF('addDialog').show()" />
+    
+    <p:dialog header="add" widgetVar="addDialog" modal="true">
+        <h:form id="form3">
+            <h:panelGrid columns="2" cellpadding="5" id="addPanel">
+                <p:outputLabel value="id" />
+                <p:inputText value="#{infoMB.selected.id}" />
+                
+                <p:outputLabel value="title" />
+                <p:inputText value="#{infoMB.selected.title}" />
+
+                <p:outputLabel value="time" />
+                <p:inputMask value="#{infoMB.selected.time}" mask="9999-99-99 99:99:99">
+                    <f:convertDateTime timeZone="GMT+8" pattern="yyyy-MM-dd HH:mm:ss" locale="zh" />
+                </p:inputMask>
+
+                <p:commandButton value="confirm" oncomplete="PF('addDialog').hide()" actionListener="#{infoMB.add}" update=":form1:infoTable,form3"  />
+            </h:panelGrid>
+        </h:form>
+    </p:dialog>
+    
+    <p:dialog header="update" widgetVar="updateDialog" modal="true">
+        <h:form id="form4">
+            <h:panelGrid columns="2" cellpadding="5" id="addPanel">
+                <p:outputLabel value="id" />
+                <p:inputText value="#{infoMB.selected.id}" readonly="true" />
+                
+                <p:outputLabel value="title" />
+                <p:inputText value="#{infoMB.selected.title}" />
+
+                <p:outputLabel value="time" />
+                <p:inputMask value="#{infoMB.selected.time}" mask="9999-99-99 99:99:99">
+                    <f:convertDateTime timeZone="GMT+8" pattern="yyyy-MM-dd HH:mm:ss" locale="zh" />
+                </p:inputMask>
+
+                <p:commandButton value="confirm" oncomplete="PF('updateDialog').hide()" actionListener="#{infoMB.update}" update=":form1:infoTable"  />
+            </h:panelGrid>
+        </h:form>
+    </p:dialog>
+	</ui:define>
+</ui:composition>
